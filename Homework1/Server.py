@@ -8,6 +8,13 @@ import json
 class Server(BaseHTTPRequestHandler):
     paths = ['/', '/movies']
 
+    def end_headers(self) -> None:
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods',
+                         'GET, POST, PUT, DELETE')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        BaseHTTPRequestHandler.end_headers(self)
+
     def validate_url(self):
         url = urlparse(self.path)
         print(url)
